@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -745,6 +746,16 @@
             
             #mobileSidebarToggle {
                 display: block;
+            }
+
+            .header {
+                justify-content: flex-start;
+                gap: 1rem;
+            }
+
+            .header-title {
+                flex: 1;
+                text-align: center;
             }
         }
         
@@ -4048,6 +4059,68 @@ export const world: World;
                 });
             }
 
+            function initExternalTools() {
+                document.querySelectorAll('.tab-button[data-tab="blockbench"]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const container = document.getElementById('blockbench-container');
+                        if (container && !container.querySelector('iframe')) {
+                            const iframe = document.createElement('iframe');
+                            iframe.src = 'https://web.blockbench.net/';
+                            iframe.onload = () => {
+                                container.querySelector('.iframe-loading').style.display = 'none';
+                            };
+                            container.appendChild(iframe);
+                        }
+                    });
+                });
+                // Similar for other tabs...
+            }
+
+            function updateAddonContents() {
+                const contents = document.getElementById('addonContents');
+                if (contents) {
+                    contents.innerHTML = '';
+                    if (Object.keys(appState.entityData).length > 0) contents.innerHTML += '<p>Entity JSON included</p>';
+                    if (Object.keys(appState.blockData).length > 0) contents.innerHTML += '<p>Block JSON included</p>';
+                    // Add for others...
+                }
+            }
+
+            function initAddonPackager() {
+                const packageBtn = document.getElementById('packageAddon');
+                if (packageBtn) {
+                    packageBtn.addEventListener('click', () => {
+                        const zip = new JSZip();
+                        const addonName = document.getElementById('addonName').value || 'MyAddon';
+                        const bp = zip.folder(`${addonName}_BP`);
+                        const rp = zip.folder(`${addonName}_RP`);
+
+                        if (Object.keys(appState.entityData).length > 0) {
+                            bp.file('entities/my_entity.json', JSON.stringify(appState.entityData, null, 2));
+                        }
+                        if (Object.keys(appState.blockData).length > 0) {
+                            bp.file('blocks/my_block.json', JSON.stringify(appState.blockData, null, 2));
+                        }
+                        // Add other files similarly...
+
+                        zip.generateAsync({type: 'blob'}).then(blob => {
+                            const a = document.createElement('a');
+                            a.href = URL.createObjectURL(blob);
+                            a.download = `${addonName}.mcaddon`;
+                            a.click();
+                        });
+                    });
+                }
+            }
+
+            function initDocs() {
+                document.querySelectorAll('.doc-section-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        header.closest('.doc-section').classList.toggle('expanded');
+                    });
+                });
+            }
+
             // Mobile Sidebar Toggle
             function initMobileSidebar() {
                 const mobileToggle = document.getElementById('mobileSidebarToggle');
@@ -4079,6 +4152,7 @@ export const world: World;
                 initScriptStudio();
                 initExternalTools();
                 initAddonPackager();
+                initDocs();
                 initMobileSidebar();
                 
                 // Initialize default section
