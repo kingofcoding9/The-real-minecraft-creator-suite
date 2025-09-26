@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omni-Science Game Studio - Minecraft Bedrock Creator Suite</title>
     <meta name="description" content="Professional Minecraft Bedrock Edition addon development platform by Omni-Science Game Studio. Complete toolkit for entities, blocks, items, recipes, scripting, and more.">
     <meta name="keywords" content="Minecraft Bedrock, addon development, entity builder, block creator, scripting, Omni-Science">
@@ -1853,25 +1853,25 @@ export enum BlockComponentTypes {
 export enum BlockPistonState {
     /**
      * @remarks
-     * Whether the piston is fully expanded.
+     * This piston is fully expanded.
      *
      */
     Expanded = 'Expanded',
     /**
      * @remarks
-     * Whether the piston is in the process of expanding.
+     * This piston is in the process of expanding.
      *
      */
     Expanding = 'Expanding',
     /**
      * @remarks
-     * Whether the piston is fully retracted.
+     * This piston is fully retracted.
      *
      */
     Retracted = 'Retracted',
     /**
      * @remarks
-     * Whether the piston is in the process of retracting.
+     * This piston is in the process of retracting.
      *
      */
     Retracting = 'Retracting',
@@ -2138,37 +2138,37 @@ export enum Difficulty {
 export enum Direction {
     /**
      * @remarks
-     * Returns the {@link Block} beneath (y - 1) of this item.
+     * This returns the {@link Block} beneath (y - 1) of this item.
      *
      */
     Down = 'Down',
     /**
      * @remarks
-     * Returns the {@link Block} to the east (x + 1) of this item.
+     * This returns the {@link Block} to the east (x + 1) of this item.
      *
      */
     East = 'East',
     /**
      * @remarks
-     * Returns the {@link Block} to the east (z + 1) of this item.
+     * This returns the {@link Block} to the east (z + 1) of this item.
      *
      */
     North = 'North',
     /**
      * @remarks
-     * Returns the {@link Block} to the south (z - 1) of this item.
+     * This returns the {@link Block} to the south (z - 1) of this item.
      *
      */
     South = 'South',
     /**
      * @remarks
-     * Returns the {@link Block} above (y + 1) of this item.
+     * This returns the {@link Block} above (y + 1) of this item.
      *
      */
     Up = 'Up',
     /**
      * @remarks
-     * Returns the {@link Block} to the west (x - 1) of this item.
+     * This returns the {@link Block} to the west (x - 1) of this item.
      *
      */
     West = 'West',
@@ -2180,19 +2180,19 @@ export enum Direction {
 export enum DisplaySlotId {
     /**
      * @remarks
-     * Displays the score below the player's name.
+     * This displays the score below the player's name.
      *
      */
     BelowName = 'BelowName',
     /**
      * @remarks
-     * Displays the score as a list on the pause screen.
+     * This displays the score as a list on the pause screen.
      *
      */
     List = 'List',
     /**
      * @remarks
-     * Displays the score on the side of the player's screen.
+     * This displays the score on the side of the player's screen.
      *
      */
     Sidebar = 'Sidebar',
@@ -2307,25 +2307,25 @@ export enum DyeColor {
 export enum FluidType {
     /**
      * @remarks
-     * Represents water as a type of fluid.
+     * This represents water as a type of fluid.
      *
      */
     Water = 'Water',
     /**
      * @remarks
-     * Represents lava as a type of fluid.
+     * This represents lava as a type of fluid.
      *
      */
     Lava = 'Lava',
     /**
      * @remarks
-     * Represents powder snow as a type of fluid.
+     * This represents powder snow as a type of fluid.
      *
      */
     PowderSnow = 'PowderSnow',
     /**
      * @remarks
-     * Represents a potion as a type of fluid.
+     * This represents a potion as a type of fluid.
      *
      */
     Potion = 'Potion',
@@ -4103,6 +4103,21 @@ export const world: World;
                     } else if (currentSection === 'addon-packager' && e.target.closest('#addon-packager-section')) {
                         updateAddonContents();
                     }
+                });
+
+                // Add listener for sidebar collapse toggle
+                const sidebar = document.getElementById('sidebar');
+                const sidebarToggle = document.getElementById('sidebarToggle');
+                sidebarToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('collapsed');
+                });
+
+                // Add listeners for nav section titles to toggle collapse
+                document.querySelectorAll('.nav-section-title').forEach(title => {
+                    title.addEventListener('click', () => {
+                        const section = title.closest('.nav-section');
+                        section.classList.toggle('collapsed');
+                    });
                 });
             });
         });
