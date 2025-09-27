@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4143,7 +4142,6 @@ export const world: World;
             }
 
             // Initialize Application
-            document.addEventListener('DOMContentLoaded', function() {
                 console.log('Minecraft Creator Suite loaded successfully!');
                 
                 // Initialize all systems
@@ -4177,7 +4175,6 @@ export const world: World;
                     } else if (currentSection === 'addon-packager' && e.target.closest('#addon-packager-section')) {
                         updateAddonContents();
                     }
-                });
 
                 // Add listener for sidebar collapse toggle
                 const sidebar = document.getElementById('sidebar');
