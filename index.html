@@ -1532,8 +1532,6 @@ world.afterEvents.playerSpawn.subscribe(event => {
  * \\\`\\\`\\\`
  *
  */
-import * as minecraftcommon from '@minecraft/common';
-import * as minecraftserver from '@minecraft/server';
 export class AdminBeforeEvents {
     private constructor();
     /**
@@ -1820,9 +1818,7 @@ export const variables: ServerVariables;
  * \\\`\\\`\\\`
  *
  */
-import * as minecraftcommon from '@minecraft/common';
 // @ts-ignore Optional types-only package, will decay to any if @minecraft/vanilla-data isn't installed
-import type * as minecraftvanilladata from '@minecraft/vanilla-data';
 /**
  * The types of block components that are accessible via
  * function Block.getComponent.
